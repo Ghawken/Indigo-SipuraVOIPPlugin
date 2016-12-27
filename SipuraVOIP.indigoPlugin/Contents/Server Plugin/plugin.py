@@ -146,7 +146,7 @@ class Plugin(indigo.PluginBase):
 
                         porttouse = dev.pluginProps['sourcePort']
                         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                        s.settimeout(3)
+                        s.settimeout(1)
                         if self.debugLevel >= 2:
                             self.debugLog(u"Socket Created")
 
@@ -169,15 +169,17 @@ class Plugin(indigo.PluginBase):
                                 # Only support one VOIP device
                                 # very likely easier way to do it
 
-                                if self.debugLevel >= 2:
+                                if self.debugLevel > 2:
                                     self.debugLog(u"MainLoop running:  {0}:".format(dev.name))
                                     #How to limit indigo that only one device is allowed?
 
 
                                 try:
+
                                     self.updateStates(dev)
 
                                     data, addr = s.recvfrom(9024)
+
 
 
                                     self.parseData(dev,data,addr)
@@ -204,7 +206,7 @@ class Plugin(indigo.PluginBase):
                 self.sleep(60)
 
     def updateStates(self,dev):
-        if self.debugLevel >= 2:
+        if self.debugLevel > 2:
             self.debugLog(u' Update States Called:')
 
         timeDifference = int(t.time() - self.checkTime)
@@ -226,7 +228,7 @@ class Plugin(indigo.PluginBase):
         return
 
     def parseData(self,dev, data,addr):
-        if self.debugLevel >= 2:
+        if self.debugLevel > 2:
             self.debugLog(u"parseData Called:  {0}:".format(data))
         sipserver = dev.pluginProps['sipServer']
         if data.startswith('INVITE'):
@@ -235,7 +237,9 @@ class Plugin(indigo.PluginBase):
                 self.debugLog(u"parseData Called: Contains INVITE")
 
 
-            if data.find(sipserver) > 0:
+            #if data.find(sipserver) > 0:
+            # change to below five times faster
+            if sipserver in data:
                 # sipserver found - must be ongoing call  (hopefully logic holds)
                 self.callType = "Outgoing"
             else:
@@ -244,7 +248,8 @@ class Plugin(indigo.PluginBase):
             if self.debugLevel >= 1:
                 self.debugLog(u"parseData: CallType {0}".format(self.callType))
 
-            if data.find("Contact: <sip:") > 0 and self.callType == "Incoming":
+            #if data.find("Contact: <sip:") > 0 and self.callType == "Incoming":
+            if 'Contact: <sip:' in data and self.callType=='Incoming' and dev.states['deviceStatus']!='Incoming Ringing':
                 pos = data.find("Contact: <sip:") + 14
                 dataedit = data[pos:].split('\n', 1)[0]
                 end = dataedit.find("@")
@@ -265,7 +270,7 @@ class Plugin(indigo.PluginBase):
                 self.updateVar('SPAIncomingCallerId', str(number))
                 self.callType = ''
 
-            if self.callType == "Outgoing":
+            if self.callType == "Outgoing" and dev.states['deviceStatus']!='Outgoing Ringing':
 
                 pos = data.find("INVITE sip:") + 11
                 dataedit = data[pos:].split('\n', 1)[0]
