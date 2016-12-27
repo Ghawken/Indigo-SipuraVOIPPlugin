@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Actions>
+    <Action id="speakNumer" deviceFilter="self">
+        <Name>Speak Caller Number</Name>
+        <CallbackMethod>speakCallerNumber</CallbackMethod>
+    </Action>
+
+  
+</Actions>
+

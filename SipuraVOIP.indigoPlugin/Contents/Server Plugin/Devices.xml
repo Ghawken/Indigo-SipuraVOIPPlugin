@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<Devices>
+
+  <Device type="custom" id="SipuraVOIPDevice">
+    <Name>Spirua VOIP Device</Name>
+
+    <ConfigUI>
+
+      <Field id="label3" type="label" fontColor="black">
+        <Label>VOIP IP Address:</Label>
+      </Field>      
+
+       <Field id="label4" type="label" fontSize="small" fontColor="black">
+        <Label> </Label>
+      </Field>
+
+       <Field id="sep1" type="separator"/>
+
+      
+      <Field id="sourceXML" type="textfield">
+        <Label>IP Address</Label>
+
+      </Field>
+      <Field id="example13" type="label" fontSize="small" fontColor="black" alignText="right" >
+        <Label> Spirua IP - will need to enable static IP address in DHCP Server</Label>
+      </Field>
+
+         <Field id="sep2" type="separator"/>
+
+      <Field id="sourcePort" type="textfield">
+        <Label>Port :</Label>
+      </Field>
+
+      <Field id="example3" type="label" fontSize="small" fontColor="black" alignText="right" >
+        <Label> Spirua Port - as configured in Spirua System Settings</Label>
+      </Field>
+
+         <Field id="sep4" type="separator"/>
+
+      <Field id="sipServer" type="textfield">
+        <Label>Sip Server:</Label>
+      </Field>
+
+      <Field id="example5" type="label" fontSize="small" fontColor="black" alignText="right" >
+        <Label> VOIP Sip Server Name/or Part Name e.g. mynetfone.com.au</Label>
+      </Field>
+
+         <Field id="sep6" type="separator"/>
+
+
+
+<!-- Substitution -->
+
+</ConfigUI>
+
+    <States>
+      <State id="deviceOnline">
+        <ValueType>Boolean</ValueType>
+        <TriggerLabel>Device online?</TriggerLabel>
+        <ControlPageLabel>Device online?</ControlPageLabel>
+      </State>
+
+        <State id="deviceStatus">
+        <ValueType>String</ValueType>
+        <TriggerLabel>Device Status</TriggerLabel>
+        <ControlPageLabel>Device Status</ControlPageLabel>
+      </State>
+      <State id="deviceLastUpdated">
+        <ValueType>String</ValueType>
+        <TriggerLabel>Device Last Updated</TriggerLabel>
+        <ControlPageLabel>Device Last Updated</ControlPageLabel>
+      </State>
+
+      <State id="lastNumber">
+        <ValueType>String</ValueType>
+        <TriggerLabel>Number of Phone</TriggerLabel>
+        <ControlPageLabel>Number of Phone</ControlPageLabel>
+      </State>
+      <State id="currentNumber">
+        <ValueType>String</ValueType>
+        <TriggerLabel>Current Number of Phone</TriggerLabel>
+        <ControlPageLabel>Current Number of Phone</ControlPageLabel>
+      </State>
+        <State id="callType">
+        <ValueType>String</ValueType>
+        <TriggerLabel>Type of Call</TriggerLabel>
+        <ControlPageLabel>Type of Call</ControlPageLabel>
+      </State>
+
+      <State id="callTime">
+        <ValueType>Number</ValueType>
+        <TriggerLabel>Time of Last Call</TriggerLabel>
+        <ControlPageLabel>Time of Last Call</ControlPageLabel>
+      </State>
+
+      <State id="durationCall">
+        <ValueType>String</ValueType>
+        <TriggerLabel>Duration of Last Call</TriggerLabel>
+        <ControlPageLabel>Duration of Last Call</ControlPageLabel>
+      </State>
+
+
+    </States>
+
+    <UiDisplayStateId>deviceStatus</UiDisplayStateId>
+
+
+
+
+<!-- Substitution -->
+
+
+
+
+
+</Device>
+</Devices>
