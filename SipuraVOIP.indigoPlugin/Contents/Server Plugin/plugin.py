@@ -263,6 +263,7 @@ class Plugin(indigo.PluginBase):
                 dev.updateStateOnServer('callType', value='Incoming')
 
                 self.updateVar('SPAIncomingCallerId', str(number))
+                self.callType = ''
 
             if self.callType == "Outgoing":
 
@@ -282,7 +283,7 @@ class Plugin(indigo.PluginBase):
                 dev.updateStateOnServer('callTime', value=update_time)
                 dev.updateStateOnServer('callType', value='Incoming')
                 self.updateVar('SPAOutgoingCallerId', str(number))
-
+                self.callType = ''
 
         if data.startswith('SIP/2.0 200 OK') and self.ringing == True:
             self.connected = True
@@ -295,14 +296,14 @@ class Plugin(indigo.PluginBase):
             self.connected = False
             self.ringing = False
             self.debugLog(u"Disconnected call:  Number:  {0}".format(dev.states['currentNumber']))
-            self.calltype = ""
+            self.callType = ""
             dev.updateStateOnServer("deviceStatus", "Off Hook")
 
 
         if data.startswith('BYE') and self.connected == True:
             self.connected = False
             self.debugLog(u"Disconnected call:  Number:  {0}".format(dev.states['currentNumber']))
-            self.calltype = ""
+            self.callType = ""
             dev.updateStateOnServer("deviceStatus", "Off Hook")
 
 
