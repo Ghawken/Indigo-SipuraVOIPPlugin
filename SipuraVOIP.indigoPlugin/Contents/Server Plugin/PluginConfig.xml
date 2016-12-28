@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <PluginConfig>
   <Field id="infoLabel0" type="label" fontSize='large' fontColor="black">
-    <Label>Enphase Envoy Plugin</Label>
+    <Label>Sipura Linksys VOIP Plugin</Label>
   </Field>
 
   <Field id="space0" type="label" fontColor="black" >
@@ -12,9 +12,9 @@
   <Field id="space1" type="label" fontColor="black">
     <Label>Check for Updates:</Label>
   </Field>
-  <Field id="sep6" type="separator"/>
-  <Field id="space2" type="label" fontSize="small" fontColor="black">
-    <Label>The amount of time that the plugin will wait between checking for updated version</Label>
+
+  <Field id="space2" type="label" fontSize="small" fontColor="black" alignText="right">
+    <Label>(The amount of time that the plugin will wait between checking for updated version)</Label>
   </Field>
 
   <Field id="configUpdaterInterval" type="textfield" defaultValue="24" tooltip="Select preference for how often updates will be checked">
@@ -27,6 +27,37 @@
   </Field>
  <Field id="sep9" type="separator"/>
 
+    <Field id="space99" type="label" fontColor="black">
+    <Label>Convert Phone Numbers to Names:</Label>
+  </Field>
+
+
+    <Field id="useNumberConversion" type="checkbox">
+        <Label>Convert Phone Numbers?</Label>
+      </Field>
+      <Field id="example15" type="label" fontSize="small" fontColor="black" alignText="right" >
+        <Label>(Create list of numbers to convert to names and use for CallerID)</Label>
+      </Field>
+
+
+       <Field id="folderLocation" type="textfield" defaultValue="" visibleBindingId="useNumberConversion" visibleBindingValue="true">
+        <Label>File Location:</Label>
+      </Field>
+
+      <Field id="example25" type="label" fontSize="small" fontColor="black" alignText="right" visibleBindingId="useNumberConversion" visibleBindingValue="true">
+        <Label>(Folder where file is located named: numbersConvert.txt)</Label>
+
+      </Field>
+        <Field id="reloadConversionNumbers"
+				   type="button"
+				   tooltip="Click on this button to reload the Caller ID Conversion"
+                visibleBindingId="useNumberConversion" visibleBindingValue="true">
+				<Label>Reload Caller ID txt file</Label>
+				<Title>Reload Caller ID txt file</Title>
+				<CallbackMethod>calltoLoadFile</CallbackMethod>
+	</Field>
+
+
   <Field id="space10" type="label" alignText="left">
     <Label>Debugging:</Label>
   </Field>
@@ -37,19 +68,18 @@
     <Label>Turn on debugging only when needed. Be careful when posting the output to the forums or other public places as it could expose sensitive information.</Label>
   </Field>
 
-  <Field id="showDebugInfo" type="checkbox" tooltip="Enabling will result in verbose logging.">
-    <Label> </Label>
-    <Description>Enable/Disable</Description>
-  </Field>
+    <Field id="logLevel" type="menu" defaultValue="20">
+        <Label>Event Logging Level:</Label>
+        <List>
+            <Option value="10">Debugging Messages</Option>
+            <Option value="20">Informational Messages</Option>
+            <Option value="30">Warning Messages</Option>
+            <Option value="40">Error Messages</Option>
+            <Option value="50">Critical Errors Only</Option>
+        </List>
+    </Field>
 
-  <Field id="showDebugLevel" type="menu" defaultValue="Low" tooltip="Controls the amount of debug information written to the log.">
-    <Label>Debug level:</Label>
-    <Description>Enable/Disable</Description>
-    <List>
-      <Option value="1">Low</Option>
-      <Option value="2">Medium</Option>
-      <Option value="3">High</Option>
-    </List>
-  </Field>
+
+
 
 </PluginConfig>
