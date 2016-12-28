@@ -16,6 +16,7 @@ import os
 import shutil
 import socket
 import logging
+import requests
 
 from ghpu import GitHubPluginUpdater
 
@@ -397,7 +398,21 @@ class Plugin(indigo.PluginBase):
 
         return
 
+    def rebootSPA(self,pluginAction, dev):
 
+        try:
+            url = 'http://' + dev.pluginProps['sourceXML'] + '/admin/reboot'
+            r = requests.get(url, timeout=5)
+
+
+            self.debugLog(U'Rebooting Device:'+str(r.status_code))
+
+
+        except Exception as error:
+
+            self.logger.debug(u'Error with Reboot'+str(error))
+
+        return
 
     def updateVar(self, name, value):
         if name not in indigo.variables:
@@ -553,6 +568,7 @@ class Plugin(indigo.PluginBase):
         self.debugLog(u"toggleDebugEnabled() method called.")
         if self.logLevel == logging.INFO:
              self.logLevel = logging.DEBUG
+
              self.indigo_log_handler.setLevel(self.logLevel)
              indigo.server.log(u'Set Logging to DEBUG')
         else:
@@ -560,6 +576,8 @@ class Plugin(indigo.PluginBase):
             indigo.server.log(u'Set Logging to INFO')
             self.indigo_log_handler.setLevel(self.logLevel)
 
+        self.pluginPrefs[u"logLevel"] = self.logLevel
+        return
 
 
 

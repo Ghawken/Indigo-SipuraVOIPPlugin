@@ -4,7 +4,10 @@
         <Name>Speak Caller Number</Name>
         <CallbackMethod>speakCallerNumber</CallbackMethod>
     </Action>
-
+    <Action id="rebootSPA" deviceFilter="self">
+        <Name>Reboot SPA Sipura Device</Name>
+        <CallbackMethod>rebootSPA</CallbackMethod>
+    </Action>
   
 </Actions>
 
